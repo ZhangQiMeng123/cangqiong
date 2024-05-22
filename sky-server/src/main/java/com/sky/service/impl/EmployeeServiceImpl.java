@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         //密码比对
-        // TODO 后期需要进行md5加密，然后再进行比对
+        //  后期需要进行md5加密，然后再进行比对
         //password.getBytes() 将密码转为字符再进行MD5加密 将前台传过来的密码记性MD5加密，再与数据库中已经加密后的密码进行比对
         password=DigestUtils.md5DigestAsHex(password.getBytes());
         if (!password.equals(employee.getPassword())) {
