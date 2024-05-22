@@ -18,7 +18,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 /**
  * 配置类，注册web层相关组件
  */
-@Configuration
+@Configuration  //也是一个Bean对象
 @Slf4j
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
@@ -41,7 +41,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      * 通过knife4j生成接口文档
      * @return
      */
-    @Bean
+    @Bean  // 项目启动的时候会自动调用该方法生成对象，交由spring容器进行管理
     public Docket docket() {
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .title("苍穹外卖项目接口文档")
@@ -51,7 +51,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sky.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.sky.controller"))  //扫描该包下以及子包下所有类的方法
                 .paths(PathSelectors.any())
                 .build();
         return docket;
