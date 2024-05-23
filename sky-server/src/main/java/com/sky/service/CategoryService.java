@@ -2,8 +2,11 @@ package com.sky.service;
 
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.result.PageResult;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface CategoryService {
@@ -25,4 +28,17 @@ public interface CategoryService {
      * @param categoryDTO
      */
     void update(CategoryDTO categoryDTO);
+
+    /**
+     * 商品分类启用禁用
+     */
+    void updateStatus(Integer status,Long id);
+
+    /**
+     * 根据类型选择商品的分类
+     *
+     * @param type
+     * @return
+     */
+    List<Category> selectByType(Integer type);
 }

@@ -63,4 +63,30 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdateTime(LocalDateTime.now());
         categoryMapper.update(category);
     }
+
+    /**
+     * 商品分类启用禁用
+     */
+    @Override
+    public void updateStatus(Integer status,Long id) {
+        Category category = Category.builder()
+                .id(id)
+                .status(status)
+                .build();
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId());
+        categoryMapper.update(category);
+    }
+
+    /**
+     * 根据类型查询分类
+     *
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> selectByType(Integer type) {
+          List<Category> lists=categoryMapper.selectByType(type);
+          return lists;
+    }
 }

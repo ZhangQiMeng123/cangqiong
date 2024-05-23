@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Api(tags = "分类管理接口")
 @RequestMapping("/admin/category")
@@ -55,5 +57,26 @@ public class Category {
          log.info("商品信息修改,{}",categoryDTO);
          categoryService.update(categoryDTO);
          return Result.success();
+     }
+
+    /**
+     * 菜品分类启用禁用
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "商品分类启用禁用")
+     public Result startOrStop(@PathVariable Integer status,Long id){
+         log.info("菜品分类启用禁用,{}",status);
+         categoryService.updateStatus(status,id);
+         return Result.success();
+     }
+     @GetMapping("/list")
+     @ApiOperation("根据类型查询分类")
+     public List<com.sky.entity.Category> selectByType(Integer type){
+           log.info("根据类型查询分类,{}",type);
+           List<com.sky.entity.Category> list= categoryService.selectByType(type);
+           return list;
      }
 }
