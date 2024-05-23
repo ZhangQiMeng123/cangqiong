@@ -2,17 +2,24 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.CategoryMapper;
+import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
 import com.sky.service.CategoryService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +28,10 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private DishMapper dishMapper;
+    @Autowired
+    private SetmealMapper setmealMapper;
     /**
      * 新增菜品分类
      * @param categoryDTO
@@ -88,5 +99,24 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> selectByType(Integer type) {
           List<Category> lists=categoryMapper.selectByType(type);
           return lists;
+    }
+
+    /**
+     * 根据id删除分类
+     * @param id
+     */
+    @Override
+    public void deleteById(Long id) {
+        //查询该菜品分类是否已经有的菜在售中
+        Integer count=dishMapper.seleteById(id);
+        if(count>0){
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
+        }
+        //查询该菜品分类的商品是否已经关联了某个套餐
+        count=setmealMapper.selectById(id);
+        if(count>0){
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
+        }
+        categoryMapper.deleteById(id);
     }
 }

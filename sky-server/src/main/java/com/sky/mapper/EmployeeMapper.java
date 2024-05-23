@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+/**
+ * 员工
+ */
 @Mapper
 public interface EmployeeMapper {
 
