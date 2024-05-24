@@ -5,5 +5,3 @@
 *Test.java
 **/test/
 *.yml
-*.AliOssProperties.java
-*secrets
