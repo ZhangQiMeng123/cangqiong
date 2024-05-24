@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
             //将异常信息通过分割转换成字符串数组
             String[] spilt = message.split(" ");
             String username = spilt[2]; //找出重复的用户名
-            String msg = username + MessageConstant.USER_ALREADY_EXIST;
+            String msg = username+MessageConstant.USER_ALREADY_EXIST;
             return Result.error(msg);
         }else{
             return Result.error(MessageConstant.UNKNOWN_ERROR);

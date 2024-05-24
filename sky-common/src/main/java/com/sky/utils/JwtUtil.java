@@ -22,8 +22,8 @@ public class JwtUtil {
         // 指定签名的时候使用的签名算法，也就是header那部分
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-        // 生成JWT的时间
-        long expMillis = System.currentTimeMillis() + ttlMillis;
+        // 生成JWT的有效时间
+        long expMillis = System.currentTimeMillis() + 24*3600*1000;
         Date exp = new Date(expMillis);
 
         // 设置jwt的body
