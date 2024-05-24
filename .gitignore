@@ -5,3 +5,6 @@
 *Test.java
 **/test/
 *.yml
+*AliOssProperties.java
+*AliOssUtil.java
+*OssConfiguration.java
