@@ -37,6 +37,7 @@ public class AutoFillAspect {
         log.info("开始进行公共字段进行自动填充...");
         //获取当前被拦截的方法上数据库的操作类型
         MethodSignature signature = (MethodSignature) joinPoint.getSignature(); //方法签名对象
+        log.info("被拦截到的方法：{}",signature.getMethod().getName());
         AutoFill autoFill = signature.getMethod().getAnnotation(AutoFill.class);//获取该方法上面的注解对象
         OperationType operationType = autoFill.value();  // 获取注解中数据库操作类型
         Object[] args = joinPoint.getArgs();  //获取当前被拦截的方法的参数-实体对象

@@ -17,7 +17,7 @@ import java.util.List;
 @Api(tags = "分类管理接口")
 @RequestMapping("/admin/category")
 @Slf4j
-public class Category {
+public class Category{
     @Autowired
     private CategoryService categoryService;
     /**
@@ -72,13 +72,19 @@ public class Category {
          categoryService.updateStatus(status,id);
          return Result.success();
      }
-     @GetMapping("/list")
-     @ApiOperation("根据类型查询分类")
-     public List<com.sky.entity.Category> selectByType(Integer type){
-           log.info("根据类型查询分类,{}",type);
-           List<com.sky.entity.Category> list= categoryService.selectByType(type);
-           return list;
-     }
+
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
+    @ApiOperation("根据类型查询分类")
+    @GetMapping("/list")
+    public Result<List<com.sky.entity.Category>> list(Integer type){
+        log.info("根据类型查询分类,{}",type);
+        List<com.sky.entity.Category> list=categoryService.selectByType(type);
+        return Result.success(list);
+    }
 
     /**
      * 根据id删除分类
