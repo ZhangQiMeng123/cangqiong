@@ -66,4 +66,57 @@ public class DishServiceImpl implements DishService {
         List<DishVO> list=page.getResult();
         return new PageResult(total,list);
     }
+
+    /**
+     * 根据id查询菜品信息
+     * @param id
+     * @return
+     */
+    @Override
+    public DishVO getById(Integer id) {
+        Dish dish=dishMapper.getById(id);
+        DishVO dishVO = new DishVO();
+        //数据库中查询出来的是Dish型，将Dish型属性赋值给DishVO
+        BeanUtils.copyProperties(dish,dishVO);
+        //根据菜品id查询菜品对应的口味
+        List<DishFlavor> listDishFlavor=dishFlavorMapper.getFlavorById(id);
+        dishVO.setFlavors(listDishFlavor);
+        return dishVO;
+    }
+
+    /**
+     * 修改菜品信息
+     * @param dishDTO
+     */
+    @Override
+    public void update(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO,dish);
+        List<DishFlavor> dishFlavors=dishDTO.getFlavors();
+        //向菜品表中提交修改的信息
+        dishMapper.update(dish);
+        //删除口味表中原有的口味
+        dishFlavorMapper.deleteById(dishDTO.getId());
+        //向口味表中提交修改的信息
+        if(dishFlavors!=null && dishFlavors.size()>0){
+           dishFlavors.forEach(dishFlavor -> {
+               dishFlavor.setDishId(dishDTO.getId());
+           });
+           dishFlavorMapper.saveBatch(dishFlavors);
+        }
+    }
+
+    /**
+     * 商品启用或禁用
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                        .status(status)
+                        .id(id)
+                        .build();
+        dishMapper.update(dish);
+    }
 }
