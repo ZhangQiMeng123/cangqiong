@@ -5,4 +5,4 @@
 *Test.java
 **/test/
 *.yml
-*.AliOssProperties.java
+AliOssProperties.java
