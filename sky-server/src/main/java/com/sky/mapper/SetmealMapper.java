@@ -6,6 +6,7 @@ import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.SetmealVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -28,9 +29,6 @@ public interface SetmealMapper {
      * @param setmeal
      */
     @AutoFill(value=OperationType.INSERT)
-    @Insert("insert into setmeal(category_id, name, price, status, description, image, create_time, update_time, create_user, update_user)" +
-            "value" +
-            "(#{categoryId},#{name},#{price},#{status},#{description},#{image},#{createTime},#{updateTime},#{createUser},#{updateUser})")
     void insert(Setmeal setmeal);
 
     /**
@@ -39,4 +37,26 @@ public interface SetmealMapper {
      * @return
      */
     Page<SetmealVO> page(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * 根据id查询套餐信息
+     * @param id
+     * @return
+     */
+    @Select("select * from setmeal where id=#{id}")
+    Setmeal getById(Long id);
+
+    /**
+     * 套餐信息修改
+     * @param setmeal
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Setmeal setmeal);
+
+    /**
+     * 根据id删除套餐
+     * @param id
+     */
+    @Delete("delete from setmeal where id=#{id}")
+    void delete(Integer id);
 }
