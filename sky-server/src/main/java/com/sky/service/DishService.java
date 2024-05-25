@@ -49,4 +49,11 @@ public interface DishService {
      * @param ids
      */
     void deleteBatchById(List<Integer> ids);
+
+    /**
+     * 根据菜品分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    List<Dish> getByCategoryId(Long categoryId);
 }

@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -150,5 +151,17 @@ public class DishServiceImpl implements DishService {
             //删除口味表中对应的口味
             dishFlavorMapper.deleteById(Long.valueOf(id));
         }
+    }
+
+    /**
+     * 根据菜品分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> getByCategoryId(Long categoryId) {
+        List<Dish> dishList= dishMapper.getByCategoryId(categoryId);
+        return dishList;
+
     }
 }

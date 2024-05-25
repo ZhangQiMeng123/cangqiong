@@ -104,4 +104,17 @@ public class DishController {
          dishService.deleteBatchById(ids);
          return Result.success();
     }
+
+    /**
+     * 根据菜品分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation(value = "根据菜品分类id查询菜品")
+    public Result<List<Dish>> getDishByCategoryId(Long categoryId){
+        log.info("根据菜品分类id查询菜品");
+        List<Dish> list= dishService.getByCategoryId(categoryId);
+        return Result.success(list);
+    }
 }
