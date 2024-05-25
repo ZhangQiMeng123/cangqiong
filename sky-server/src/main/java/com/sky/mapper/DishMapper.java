@@ -52,5 +52,10 @@ public interface DishMapper {
     @AutoFill(value=OperationType.INSERT)
     void update(Dish dish);
 
-
+    /**
+     * 批量删除菜品
+     * @param id
+     */
+    @Delete("delete from dish where id=#{id}")
+    void deleteByIds(Integer id);
 }

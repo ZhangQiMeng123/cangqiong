@@ -7,6 +7,8 @@ import com.sky.result.PageResult;
 import com.sky.vo.DishVO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface DishService {
 
@@ -41,4 +43,10 @@ public interface DishService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * 批量删除菜品
+     * @param ids
+     */
+    void deleteBatchById(List<Integer> ids);
 }
