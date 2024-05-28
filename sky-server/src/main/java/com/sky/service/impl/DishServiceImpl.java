@@ -84,7 +84,7 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     @Override
-    public DishVO getById(Integer id) {
+    public DishVO getById(Long id) {
         Dish dish = dishMapper.getById(id);
         DishVO dishVO = new DishVO();
         //数据库中查询出来的是Dish型，将Dish型属性赋值给DishVO
@@ -140,8 +140,8 @@ public class DishServiceImpl implements DishService {
      */
     @Transactional
     @Override
-    public void deleteBatchById(List<Integer> ids) {
-        for (Integer id : ids) {
+    public void deleteBatchById(List<Long> ids) {
+        for (Long id : ids) {
             Dish dish = dishMapper.getById(id);
             if (dish.getStatus() == StatusConstant.ENABLE) {  // 起售中的商品不能删除
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
@@ -153,7 +153,7 @@ public class DishServiceImpl implements DishService {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
         //删除菜品以及对应的口味
-        for (Integer id : ids) {
+        for (Long id : ids) {
             dishMapper.deleteByIds(id);
             //删除口味表中对应的口味
             dishFlavorMapper.deleteById(Long.valueOf(id));

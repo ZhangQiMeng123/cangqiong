@@ -45,7 +45,7 @@ public interface DishMapper {
      * @param id
      * @return
      */
-    Dish getById(Integer id);
+    Dish getById(Long id);
 
     /**
      * 菜品信息修改
@@ -59,7 +59,7 @@ public interface DishMapper {
      * @param id
      */
     @Delete("delete from dish where id=#{id}")
-    void deleteByIds(Integer id);
+    void deleteByIds(Long id);
 
     /**
      * 根据菜品分类id查询菜品

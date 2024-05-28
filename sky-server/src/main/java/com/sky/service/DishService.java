@@ -29,7 +29,7 @@ public interface DishService {
      * @param id
      * @return
      */
-    DishVO getById(Integer id);
+    DishVO getById(Long id);
 
     /**
      * 修改菜品信息
@@ -48,7 +48,7 @@ public interface DishService {
      * 批量删除菜品
      * @param ids
      */
-    void deleteBatchById(List<Integer> ids);
+    void deleteBatchById(List<Long> ids);
 
     /**
      * 根据菜品分类id查询菜品

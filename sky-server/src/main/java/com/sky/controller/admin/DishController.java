@@ -75,7 +75,7 @@ public class DishController {
      */
     @GetMapping("/{id}")
     @ApiOperation(value = "根据id查询菜品信息")
-    public Result<DishVO> getById(@PathVariable Integer id){
+    public Result<DishVO> getById(@PathVariable Long id){
         log.info("根据id查询菜品信息,{}",id);
         DishVO dishVO=dishService.getById(id);
         return Result.success(dishVO);
@@ -119,7 +119,7 @@ public class DishController {
      */
     @DeleteMapping
     @ApiOperation(value = "批量删除菜品")
-    public Result deleteByIds(@RequestParam List<Integer> ids){
+    public Result deleteByIds(@RequestParam List<Long> ids){
          log.info("批量删除菜品,{}",ids);
          dishService.deleteBatchById(ids);
         //将所有的菜品信息缓存全部清理掉，所有以dish_开头的key
