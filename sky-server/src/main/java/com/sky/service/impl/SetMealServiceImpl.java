@@ -13,6 +13,7 @@ import com.sky.mapper.SetMealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetMealService;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.DishVO;
 import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -131,5 +132,40 @@ public class SetMealServiceImpl implements SetMealService {
             setmealMapper.delete(id);
             setMealDishMapper.deleteBySetMealId(Long.valueOf(id));
         }
+    }
+
+//    --------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 根据分类id查看套餐信息
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<SetmealVO> getSetmealList(Long categoryId) {
+        Setmeal setmeal = new Setmeal();
+        setmeal.setCategoryId(categoryId);
+        setmeal.setStatus(StatusConstant.ENABLE); List<Setmeal> setmealList=setmealMapper.getSetMealList(setmeal);
+        ArrayList<SetmealVO> setmealVOS = new ArrayList<>();
+        SetmealVO setmealVO = new SetmealVO();
+        if(setmealList!=null) {
+            for (Setmeal setmeal1 : setmealList) {
+                BeanUtils.copyProperties(setmeal1,setmealVO);
+                setmealVOS.add(setmealVO);
+            }
+        }
+        return setmealVOS;
+
+    }
+
+    /**
+     * 根据套餐id查看套餐包含的菜品信息
+     * @param setMealId
+     * @return
+     */
+    @Override
+    public List<DishItemVO> getDishItemById(Long setMealId) {
+        List<DishItemVO> dishItemVOList=setmealMapper.getDishItemById(setMealId);
+        return dishItemVOList;
     }
 }

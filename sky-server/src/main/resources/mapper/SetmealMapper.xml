@@ -26,6 +26,7 @@
         order by create_time desc
     </select>
 
+
     <!--套餐信息修改-->
     <update id="update" parameterType="Setmeal" useGeneratedKeys="true" keyProperty="id">
     update setmeal
@@ -41,4 +42,14 @@
         </set>
        where id=#{id}
     </update>
+
+<!--    用户端根据分类id查看套餐信息-->
+    <select id="getSetMealList" resultType="com.sky.entity.Setmeal">
+        select * from setmeal
+        <where>
+            <if test="categoryId != null">and category_id=#{categoryId}</if>
+            <if test="status!=null">and status=#{status}</if>
+        </where>
+        order by create_time desc
+    </select>
 </mapper>

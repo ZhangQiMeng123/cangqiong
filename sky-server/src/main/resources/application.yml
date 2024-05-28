@@ -37,6 +37,10 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    #设置前端传递过来的令牌名称
+    user-secret-key: itheima
+    user-ttl: 7200000
+    user-token-name: authentication
   #设置阿里云相关属性
   alioss:
     endpoint: ${sky.alioss.endpoint}
@@ -44,7 +48,12 @@ sky:
     access-key-secret: ${sky.alioss.access-key-secret}
     bucket-name: ${sky.alioss.bucket-name}
 
-    #从application-dev.yml中获取redis数据源
+  #获取微信小程序相关配置
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
+
+  #从application-dev.yml中获取redis数据源
 redis:
   host: ${sky.redis.host}
   port: ${sky.redis.port}

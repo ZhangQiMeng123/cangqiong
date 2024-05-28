@@ -57,4 +57,16 @@
         order by create_time desc
     </select>
 
+<!--    用户端根据菜品分类id查看菜品信息-->
+    <select id="getDish" parameterType="Dish" resultType="Dish">
+        select * from dish
+        <where>
+            <if test="categoryId!=null">
+                and category_id=#{categoryId}
+            </if>
+            <if test="status!=null">and status=#{status}</if>
+        </where>
+        order by create_time desc
+    </select>
+
 </mapper>
