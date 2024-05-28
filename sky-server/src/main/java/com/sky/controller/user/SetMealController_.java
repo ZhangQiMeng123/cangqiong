@@ -10,6 +10,7 @@ import com.sky.vo.SetmealVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class SetMealController_ {
     private SetMealService setMealService;
     @GetMapping("/list")
     @ApiOperation(value = "用户端根据分类id查看套餐")
+    @Cacheable(cacheNames = "setmealCache",key="#categoryId") //方法执行之前先看redis缓存是否存有数据，没有再去访问数据库，并把查到的数据放到redis中
     public Result<List<SetmealVO>> getBySetMeal(Long categoryId){
         log.info("用户端查看套餐接口,{}",categoryId);
         List<SetmealVO> setmealVOS=setMealService.getSetmealList(categoryId);

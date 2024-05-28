@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class SetMealController {
      */
     @PostMapping
     @ApiOperation(value = "新增套餐")
+    @CacheEvict(cacheNames = "setmealCache",key="#setmealDTO.categoryId") //批量删除一条或多条缓存数据
     public Result saveSetMeal(@RequestBody SetmealDTO setmealDTO){
         log.info("新增套餐,{}",setmealDTO);
         setMealService.saveSetMeal(setmealDTO);
@@ -72,6 +74,7 @@ public class SetMealController {
      */
     @ApiOperation(value = "套餐信息修改")
     @PutMapping
+    @CacheEvict(cacheNames = "setmealCache",key="#setmealDTO.categoryId") //批量删除一条或多条缓存数据
     public Result updateSetMeal(@RequestBody SetmealDTO setmealDTO){
         log.info("套餐信息修改,{}",setmealDTO);
         setMealService.update(setmealDTO);
@@ -86,6 +89,7 @@ public class SetMealController {
      */
     @ApiOperation(value = "套餐启用禁用")
     @PostMapping("/status/{status}")
+    @CacheEvict(cacheNames = "setmealCache",key="#setmealDTO.categoryId") //批量删除一条或多条缓存数据
     public Result startOrStop(@PathVariable Integer status,Long id){
         log.info("套餐启用禁用,{},{}",status,id);
         setMealService.startOrStop(status,id);
@@ -99,6 +103,7 @@ public class SetMealController {
      */
     @ApiOperation(value = "根据id批量删除套餐")
     @DeleteMapping
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true) //批量删除一条或多条缓存数据
     public Result deleteByIds(@RequestParam List<Integer> ids){
           log.info("根据id批量删除套餐,{}",ids);
           setMealService.deleteByIds(ids);
