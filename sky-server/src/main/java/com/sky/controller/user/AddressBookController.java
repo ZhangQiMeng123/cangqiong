@@ -87,4 +87,15 @@ public class AddressBookController {
         addressBookService.deleteById(id);
         return Result.success();
     }
+
+    /**
+     * 查看默认地址
+     * @return
+     */
+    @GetMapping("/default")
+    public Result<AddressBook> getAddressByDefault(){
+        log.info("查看默认地址");
+        AddressBook addressBook=addressBookService.getAddressByDefault();
+        return Result.success(addressBook);
+    }
 }

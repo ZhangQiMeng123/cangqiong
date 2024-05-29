@@ -38,4 +38,10 @@ public interface AddressBookService {
      * 根据id删除地址
      */
     void deleteById(Long id);
+
+    /**
+     * 查看默认地址
+     * @return
+     */
+    AddressBook getAddressByDefault();
 }

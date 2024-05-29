@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.sky.context.BaseContext;
 import com.sky.entity.AddressBook;
 import com.sky.mapper.AddressBookMapper;
+import com.sky.result.Result;
 import com.sky.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,5 +77,15 @@ public class AddressBookServiceImpl implements AddressBookService {
     @Override
     public void deleteById(Long id) {
         addressBookMapper.deleteById(id);
+    }
+
+    /**
+     * 查看默认地址
+     * @return
+     */
+    @Override
+    public AddressBook getAddressByDefault() {
+        AddressBook addressBook=addressBookMapper.getAddressByDefault();
+        return addressBook;
     }
 }
