@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +70,12 @@ public interface OrderMapper {
     @Select("select * from orders")
     List<Orders> getOrdersCount();
 
-
+    /**
+     * 定时处理订单未支付以及完成但未点击完成状态
+     * @param status
+     * @param orderTime
+     * @return
+     */
+    @Select("select * from orders where status=#{status} and order_time < #{orderTime}")
+    List<Orders> getOrdersByOrderTime(Integer status, LocalDateTime orderTime);
 }
