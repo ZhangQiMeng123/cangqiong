@@ -15,14 +15,14 @@ sky:
     #微信小程序配置
   wechat:
     appid: wx762caba6da70cece
-    secret: 3337f7c7a9718eb9c9083dac34d97326
-    mchid: 1561414331   #商户号
-    mchSerialNo: 4B3B3DC35414AD50B1B755BAF8DE9CC7CF407606  #证书序列号
-    privateKeyFilePath: D:\apiclient_key.pem  #私钥文件（需要更改）
-    apiV3Key: CZBK51236435wxpay435434323FFDuv3   #解密密钥
-    weChatPayCertFilePath: D:\wechatpay_166D96F876F45C7D07CE98952A96EC980368ACFC.pem #(平台证书文件)
-    notifyUrl: https://www.weixin.qq.com/wxpay/pay.php #/后台controller请求访问的路径    #支付成功之后的回调
-    refundNotifyUrl: https://www.weixin.qq.com/wxpay/pay.php #/后台controller请求访问的路径  # 用户退款成功之后的回调  这两个临时域名是一次性的，需要用内网穿透工具获取最新的域名并进行更改
+    secret: 0159a33fb4a7c718fd5e272a612b5e90
+#    mchid: 1561414331   #商户号
+#    mchSerialNo: 4B3B3DC35414AD50B1B755BAF8DE9CC7CF407606  #证书序列号
+#    privateKeyFilePath: D:\apiclient_key.pem  #私钥文件（需要更改）
+#    apiV3Key: CZBK51236435wxpay435434323FFDuv3   #解密密钥
+#    weChatPayCertFilePath: D:\wechatpay_166D96F876F45C7D07CE98952A96EC980368ACFC.pem #(平台证书文件)
+#    notifyUrl: https://1d727b0b.r21.cpolar.top/notify/paySuccess #/后台controller请求访问的路径    #支付成功之后的回调
+#    refundNotifyUrl: https://www.weixin.qq.com/wxpay/pay.php #/后台controller请求访问的路径  # 用户退款成功之后的回调  这两个临时域名是一次性的，需要用内网穿透工具获取最新的域名并进行更改
 
   #阿里云相关配置
   alioss:

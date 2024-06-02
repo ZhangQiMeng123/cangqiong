@@ -22,7 +22,7 @@ public class OrderTask {
     /**
      * 处理订单超时未支付
      */
-    @Scheduled(cron ="0 0/1 * * * ?")
+    @Scheduled(cron ="0 0/10 * * * ?")
     public void OrderProcessing1(){
         log.info("处理超时未支付订单：{}",new Date());
         LocalDateTime time=LocalDateTime.now().plusMinutes(-5);
