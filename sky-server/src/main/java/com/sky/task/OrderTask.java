@@ -22,11 +22,11 @@ public class OrderTask {
     /**
      * 处理订单超时未支付
      */
-    @Scheduled(cron ="0 0/10 * * * ?")
+    @Scheduled(cron ="0 0/10 * * * ? ")
     public void OrderProcessing1(){
         log.info("处理超时未支付订单：{}",new Date());
         LocalDateTime time=LocalDateTime.now().plusMinutes(-5);
-        List<Orders> ordersList=orderMapper.getOrdersByOrderTime(Orders.PENDING_PAYMENT,time);
+        List<Orders> ordersList=orderMapper.getOrdersByOrderTime(Orders.PENDING_PAYMENT,time,LocalDateTime.now());
         if(ordersList!=null){
             for (Orders order:ordersList){
                 order.setStatus(Orders.CANCELLED); // 将订单取消
@@ -44,11 +44,28 @@ public class OrderTask {
     public void OrderProcessing2(){
         log.info("处理派送中订单：{}",new Date());
         LocalDateTime time=LocalDateTime.now().plusMinutes(-5);  // 凌晨一点钟自动处理前一天(24点整)的订单
-        List<Orders> ordersList=orderMapper.getOrdersByOrderTime(Orders.DELIVERY_IN_PROGRESS,time);
+        List<Orders> ordersList=orderMapper.getOrdersByOrderTime(Orders.DELIVERY_IN_PROGRESS,time,LocalDateTime.now());
         if(ordersList!=null){
             for(Orders order: ordersList){
                 order.setStatus(Orders.COMPLETED);
                 orderMapper.update(order);
+            }
+        }
+    }
+
+    /**
+     * 设置时间，自动处理处于待接单的单子
+     */
+    @Scheduled(cron = "0 0/10 * * * ? ")
+    public void orderProcessing3(){
+        log.info("处理长时间未接单的单子:{}",new Date());
+        //从下单时间到现在已经过去十分钟
+        LocalDateTime time=LocalDateTime.now().plusMinutes(-10);
+        List<Orders> ordersList=orderMapper.getOrdersByOrderTime(Orders.TO_BE_CONFIRMED,time,LocalDateTime.now());
+        if(ordersList!=null){
+            for (Orders orders:ordersList){
+                orders.setStatus(Orders.CONFIRMED);
+                orderMapper.update(orders);
             }
         }
     }

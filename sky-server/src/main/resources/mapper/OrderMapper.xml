@@ -55,9 +55,36 @@
            <if test="number!=null">and number like concat('%',#{number},'%')</if>
            <if test="phone!=null">and phone like concat('%',#{phone},'%')</if>
            <if test="status!=null">and status=#{status}</if>
-           <if test="beginTime!=null and endTime!=null">order_time between #{beginTime} and #{endTime}</if>
+           <if test="beginTime and endTime!=null">and order_time between #{beginTime} and #{endTime}</if>
        </where>
        order by order_time desc
     </select>
-         
+<!--    根据动态条件查询营业额-->
+    <select id="sumByMap" resultType="java.lang.Double">
+        select sum(amount) from orders
+        <where>
+            <if test="status != null">and status=#{status}</if>
+            <if test="begin!=null">and order_time &gt;=#{begin}</if>
+            <if test="end!=null">and order_time &lt;=#{end}</if>
+        </where>
+    </select>
+<!--    获取订单数-->
+    <select id="getOrderByIds" resultType="java.lang.Integer">
+        select count(id) from orders
+        <where>
+            <if test="beginTime!=null">and order_time &gt;= #{beginTime}</if>
+            <if test="endTime!=null">and order_time &lt;= #{endTime}</if>
+            <if test="status!=null">and status=#{status}</if>
+        </where>
+    </select>
+<!--    获取前十名销量好的名字以及销量-->
+    <select id="getSalesTop10" resultType="com.sky.dto.GoodsSalesDTO">
+        select od.name name,sum(od.number) number from order_detail od,orders o where od.order_id=o.id and o.status=5
+           <if test="beginTime!=null">and order_time &gt;= #{beginTime}</if>
+           <if test="endTime!=null">and order_time &lt; #{endTime}</if>
+        group by  name
+        order by number desc
+        limit 0,10
+    </select>
+
 </mapper>

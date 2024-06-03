@@ -14,7 +14,7 @@ import java.util.Date;
 @Slf4j
 public class Mytask {
     int mount=0;
-   // @Scheduled(cron ="0/10 * * * * ? " )
+    //@Scheduled(cron ="0/10 * * * * ? " )
 
     public void task1(){
 
