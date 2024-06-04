@@ -6,6 +6,7 @@ import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.OrderDetail;
 import com.sky.entity.Orders;
+import com.sky.vo.BusinessDataVO;
 import com.sky.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -93,6 +94,7 @@ public interface OrderMapper {
      * 获取订单数
      * @param beginTime
      * @param endTime
+     * @param status
      * @return
      */
     Integer getOrderByIds(LocalDateTime beginTime, LocalDateTime endTime,Integer status);
@@ -104,4 +106,24 @@ public interface OrderMapper {
      * @return
      */
     List<GoodsSalesDTO> getSalesTop10(LocalDateTime beginTime, LocalDateTime endTime);
+
+
+    /**
+     * 营业额
+     * @param beginTime
+     * @param endTime
+     * @param status
+     * @return
+     */
+    @Select("select sum(amount) from orders where order_time between #{beginTime} and #{endTime} and status=#{status}")
+    Double getTurnover(LocalDateTime beginTime, LocalDateTime endTime, Integer status);
+
+    /**
+     * 获取一天中所有订单
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    @Select("select * from orders where order_time between #{beginTime} and #{endTime}")
+    List<Orders> getAllOrder(LocalDateTime beginTime, LocalDateTime endTime);
 }

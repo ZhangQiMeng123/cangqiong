@@ -104,7 +104,7 @@ public class ReporterServiceImpl implements ReporterService {
         Map map = new HashMap();
         map.put("begin",beginTime);
         map.put("end", endTime);
-        return userMapper.countByMap(map);
+        return userMapper.getUserCount(beginTime,endTime);
     }
 
     /**

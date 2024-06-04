@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -74,4 +75,11 @@ public interface DishMapper {
      * @return
      */
     List<Dish> getDish(Dish dish1);
+
+    /**
+     * 工作台获取菜品数据信息
+     * @return
+     */
+    @Select("select * from dish")
+    List<Dish> getDishData();
 }

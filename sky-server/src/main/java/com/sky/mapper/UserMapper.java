@@ -38,7 +38,7 @@ public interface UserMapper {
      * @return
      */
 
-   //Integer getUserCount(LocalDateTime beginTime, LocalDateTime endTime);
+   Integer getUserCount(LocalDateTime beginTime, LocalDateTime endTime);
 
-    Integer countByMap(Map map);
+    //Integer countByMap(Map map);
 }
