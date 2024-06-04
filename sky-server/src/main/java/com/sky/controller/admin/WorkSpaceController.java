@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * 工作台相关接口
  */
@@ -30,7 +33,11 @@ public class WorkSpaceController {
     @GetMapping("/businessData")
     public Result<BusinessDataVO> getBusinessData(){
         log.info("获取今日数据");
-        BusinessDataVO businessDataVO=workSpaceService.getBusinessData();
+        //获得当天的开始时间
+        LocalDateTime beginTime = LocalDateTime.now().with(LocalTime.MIN);
+        //获得当天的结束时间
+        LocalDateTime endTime = LocalDateTime.now().with(LocalTime.MAX);
+        BusinessDataVO businessDataVO=workSpaceService.getBusinessData(beginTime,endTime);
         return Result.success(businessDataVO);
     }
 
@@ -66,6 +73,7 @@ public class WorkSpaceController {
     @GetMapping("/overviewSetmeals")
     public Result<SetmealOverViewVO> getSetmealData(){
          log.info("获取菜单管理数据");
+
          SetmealOverViewVO setmealOverViewVO=workSpaceService.getStemealData();
          return Result.success(setmealOverViewVO);
     }

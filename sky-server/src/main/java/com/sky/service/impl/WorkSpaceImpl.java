@@ -37,11 +37,8 @@ public class WorkSpaceImpl implements WorkSpaceService {
      * @return
      */
     @Override
-    public BusinessDataVO getBusinessData() {
-        //获得当天的开始时间
-        LocalDateTime beginTime = LocalDateTime.now().with(LocalTime.MIN);
-        //获得当天的结束时间
-        LocalDateTime endTime = LocalDateTime.now().with(LocalTime.MAX);
+    public BusinessDataVO getBusinessData(LocalDateTime beginTime,LocalDateTime endTime) {
+
         //订单总数
         Integer totalOrders=orderMapper.getOrderByIds(beginTime,endTime,null);
         //有效订单数
